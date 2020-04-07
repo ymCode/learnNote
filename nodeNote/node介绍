@@ -1,0 +1,84 @@
+node.js
+
+node的官网是 http://nodejs.org
+node是事件驱动来服务I/O
+
+node js可以干什么
+1、访问本地文件
+2、可以搭建webSocket服务器端
+3、可以连接数据库
+4、可以向web workers一样玩转多进程
+
+node与浏览器相同的机制和原理运行
+node中绝大多数的操作都是异步执行的
+
+事件编程的优势
+1、轻量级
+2、松耦合
+3、只关注事物
+
+函数在js里是一等公民，也可以作为对象传递给方法作为实参
+
+node除了异步和事件外,回调也是其一大特点.
+在node中,JavaScript与其余线程无法共享任何状态.
+多线程问题: 死锁、线程上下文交换带来的性能上的开销.
+工作线程为了不阻碍主线程,通过消息传递的方式来传递运行结果.这造成了工作线程不能访问主线程UI的原因.
+
+为什么说node处理I/O的能力比较强,不清楚.
+node擅长并行I/O
+使用c或者c++扩展的方式更高效的利用cpu.
+
+模块机制
+js很早之前做的两件事是 表单提交和网页特效
+javaScript不断被类聚和抽象,以更好地组织业务逻辑.先天缺乏的一项功能:模块.自动加载和安装依赖的能力.
+跨宿主环境执行的能力.
+javascript还可以编写命令行工具、桌面图形界面应用程序.
+
+ECMAScript 主要规范于浏览器,commonJS主要规范 node. node服从ECMAScript和commonJS双重的规范.
+模块系统是由commonJS提出的.
+模块分为三块内容,1、模块引用,2.模块的定义3.模块的标识. 主要理解模块的标示这个知识点
+exports是module的一个属性,把方法或者变量挂在exports上就能给外部使用.
+
+核心模块的加载快于文件模块,是因为核心模块的在运行时就被加载到可执行的二进制文件中了.
+node会对引入过的脚本文件进行缓存.
+node基于标示符来查找文件.node标识符的扩展名自动会按.js、.node、.json的方式来补足.
+模块中三个核心变量 exports、require、module
+一些文件中的变量,比如上面的三个以及__filename、__dirname
+每个文件在编译后被首尾包装在一个函数,这样实现了作用域的隔离.
+json文件被编译后,通过JSON.parse()方法得到对象,然后将对象赋值给exports
+nativeMoudule._cache对象上存储这核心javascript包,Module._cache对象上存储着文件对象上.
+纯c/c++编写的部分统一称为内建模块
+node_extensions.h文件将这些散列的内建模块统一放进了一个叫node_module_list数组中去
+文件模块可能会依赖核心模块,核心模块可能会依赖内建模块
+字符串数组转化为字符串,然后被js模块进行编译和执行.
+c++到js代码转换,在node的内建模块中被支持,那么c++语法在node中能被执行么?
+require('os') -> NativeModule.require('os') ->proccess.binding('os')->get_builtin_module('node_os')->NODE_MODULE(node_os, reg_func)
+node项目的生成文件 node.gyp
+JavaScript中只有double型的数据类型.
+转码和编码的过程都需要涉及到位运算.
+C/C++的扩展模块属于文件模块
+C/C++扩展模块会先编译成.node文件,然后通过process.dlopen()方法加载执行.
+*nix平台g++/gcc等编译器编译位动态链接共享对象文件(.so)
+在windows下则需要通过VisualC++的编译器编译为动态链接库文件(.dll)
+
+node-gyp专门为node提供的一个专有扩展工具,通过npm install -g node-gyp这个命令即可安装
+V8引擎由C++实现.可以实现js和c++之间互相调用.
+libuv库,实现node跨平台的一个方案.
+普通的扩展模块,不需要将源码写进node命令空间.
+原生模块会声明在node_module_list中
+dlopen()来动态加载文件
+.gyp项目文件是 binding.gyp
+编译完之后,会生成一个.node文件在build/Release目录下
+NODE_MODULE将模块定义为node_module_struct结构
+
+
+
+
+
+
+
+
+
+
+
+
